@@ -97,14 +97,8 @@ def get_rotate_arr(arr,candidate,rotate):
              copied_arr[row-1+i][col-1+j] = subarr[i][j]
     return copied_arr
 
-
-
-#----------------------------------------------------------------------------------------------------------------------------------
-#----------------------------------------------------------------------------------------------------------------------------------
 # 본코드
 for _ in range(K):
-    # print("초기arr")
-    # print_2darr(arr,5)
     #1. lookout배열 채우기
     lookout = []
     for candidate in candidates:
@@ -112,9 +106,7 @@ for _ in range(K):
         # print("row:{}, col:{}".format(centerRow,centerCol))
         for rotate in rotates:
             tmp_rotated_arr = get_rotate_arr(arr, candidate, rotate)
-            # print_2darr(tmp_rotated_arr,5)
             tmp_get_Val = get_val(tmp_rotated_arr, 5)["val"]
-            # print("{}돌렷을때 value는 {}".format(rotate,tmp_get_Val))
             lookout.append({
                 "row": centerRow,
                 "col" :centerCol,
@@ -124,12 +116,9 @@ for _ in range(K):
 
     # 정렬하기
     sorted_lookout = sorted(lookout,key=lambda x: (-x["val"],x["rotate"],x["col"],x["row"]))
-    # print(sorted_lookout)
     target = sorted_lookout[0]
-    # print(target)
     # 유물 탐사 불가능
     if(target["val"] < 3):
-        # print("유물탐사 불가")
         break
 
     #1. 회전하기
@@ -149,14 +138,10 @@ for _ in range(K):
         else:
             #2-1. 값 더하기
             answer += cnt
-            # print("{} 더합니다".format(cnt))
             #2-2. 채워넣기
             accumulate = sorted(getVal["accumulate"], key=lambda x:(x[1],-x[0]))
-            # print("acuumulate: {}".format(accumulate))
             for trow,tcol in accumulate:
                 arr[trow][tcol] = fill[fill_idx]
                 fill_idx += 1
-            # print("채워넣은후 arr")
-            # print_2darr(arr, 5)
-    # print("answer: {}".format(answer), end=" ")
+
     print(answer, end=" ")
