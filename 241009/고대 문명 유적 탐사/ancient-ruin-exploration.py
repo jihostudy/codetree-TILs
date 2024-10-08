@@ -103,6 +103,8 @@ def get_rotate_arr(arr,candidate,rotate):
 #----------------------------------------------------------------------------------------------------------------------------------
 # 본코드
 for _ in range(K):
+    # print("초기arr")
+    # print_2darr(arr,5)
     #1. lookout배열 채우기
     lookout = []
     for candidate in candidates:
@@ -121,7 +123,7 @@ for _ in range(K):
             })
 
     # 정렬하기
-    sorted_lookout = sorted(lookout,key=lambda x: (-x["val"],x["rotate"],-x["col"],x["row"]))
+    sorted_lookout = sorted(lookout,key=lambda x: (-x["val"],x["rotate"],x["col"],x["row"]))
     # print(sorted_lookout)
     target = sorted_lookout[0]
     # print(target)
@@ -132,8 +134,6 @@ for _ in range(K):
 
     #1. 회전하기
     arr = get_rotate_arr(arr,(target["row"], target["col"]), target["rotate"])
-    # print("회전후 arr")
-    # print_2darr(arr,5)
     #2. 연속이 없을때까지 값 더하기
     answer = 0
     isDone = False
@@ -149,10 +149,14 @@ for _ in range(K):
         else:
             #2-1. 값 더하기
             answer += cnt
-            # print("{} 더합니다".format(answer))
+            # print("{} 더합니다".format(cnt))
             #2-2. 채워넣기
             accumulate = sorted(getVal["accumulate"], key=lambda x:(x[1],-x[0]))
+            # print("acuumulate: {}".format(accumulate))
             for trow,tcol in accumulate:
                 arr[trow][tcol] = fill[fill_idx]
                 fill_idx += 1
+            # print("채워넣은후 arr")
+            # print_2darr(arr, 5)
+    # print("answer: {}".format(answer), end=" ")
     print(answer, end=" ")
